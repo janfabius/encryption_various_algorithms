@@ -15,7 +15,10 @@ public class DES {
         byte[] digestOfPassword = md.digest(key);
 
         SecretKeySpec skeySpec = new SecretKeySpec(digestOfPassword, "DESede");
+
         Cipher cipher = Cipher.getInstance("DESede/CBC/PKCS5Padding");
+        //Cipher cipher = Cipher.getInstance("ECB");
+
         cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
         byte[] encrypted = cipher.doFinal(clear);
         return Base64.encodeToString(encrypted, Base64.DEFAULT);
@@ -30,5 +33,6 @@ public class DES {
         cipher.init(Cipher.DECRYPT_MODE, skeySpec);
         byte[] decrypted = cipher.doFinal(encrypted);
         return new String(decrypted, "UTF-16LE");
+       // return new String(decrypted, "UTF-8");
     }
 }
